@@ -96,3 +96,7 @@ wget -nv https://github.com/JE668/Phicomm-K3-OpenWrt-Firmware-Lean/raw/refs/head
 # rm -rf ./package/lean/k3-brcmfmac4366c-firmware/files/lib/firmware/brcm/brcmfmac4366c-pcie.bin
 # cp -af https://github.com/JE668/Phicomm-K3-OpenWrt-Firmware-Lean/raw/refs/heads/main/brcmfmac4366c-pcie.bin ./package/lean/k3-brcmfmac4366c-firmware/files/lib/firmware/brcm/brcmfmac4366c-pcie.bin
 echo '=========Replace k3 wireless firmware OK!========='
+echo '添加主页的CPU温度显示'
+sed -i "/<tr><td width=\"33%\"><%:Load Average%>/a \ \t\t<tr><td width=\"33%\"><%:CPU Temperature%></td><td><%=luci.sys.exec(\"sed 's/../&./g' /sys/class/thermal/thermal_zone0/temp|cut -c1-4\")%></td></tr>" feeds/luci/modules/luci-mod-admin-full/luasrc/view/admin_status/index.htm
+cat feeds/luci/modules/luci-mod-admin-full/luasrc/view/admin_status/index.htm |grep Temperature
+echo "Add CPU Temperature in Admin Index OK====================="
